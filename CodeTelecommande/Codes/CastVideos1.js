@@ -73,7 +73,7 @@ function sessionListener(newSession) {
     document.getElementById('previousBtn').style.display = 'block';
 }
 
-
+//Doit faire diff mute note à moi-même
 function initializeMuted(remotePlayerController, remotePlayer, mediaSession) {
     //Ajout listener + boutton
     muteToggle.addEventListener('click', () => {
@@ -96,27 +96,8 @@ function initializeMuted(remotePlayerController, remotePlayer, mediaSession) {
 
 
 
-function initializeSeekSlider(remotePlayerController, mediaSession) {
-    currentMediaSession = mediaSession;
-    document.getElementById('play_button').style.display = 'block';
-   // Set max value of seek slider to media duration in seconds
-   seekSlider.max = mediaSession.media.duration;
 
-    updateInterval = setInterval(() => {
-        const currentTime = mediaSession.getEstimatedTime();
-        const totalTime = mediaSession.media.duration;
-  
-        seekSlider.value = currentTime;
-        currentTimeElement.textContent = formatTime(currentTime);
-        totalTimeElement.textContent = formatTime(totalTime);
-      }, 1000); //chaque 1000 ms... 1 sec
-  
-      // slider change
-      seekSlider.addEventListener('input', () => {
-        const seekTime = parseFloat(seekSlider.value);
-        remotePlayerController.seek(seekTime);
-      });
- }
+
 function initializeMediaSession(mediaSession) {
     currentMediaSession = mediaSession;
     document.getElementById('play_button').style.display = 'block';
@@ -159,10 +140,4 @@ function loadMedia(videoUrl) {
         initializeMediaSession(mediaSession);
         initializeMuted(mediaSession);
       }, onError);
-}
-
-function formatTime(timeInSeconds) {
-    const minutes = Math.floor(timeInSeconds / 60);
-    const seconds = Math.floor(timeInSeconds % 60);
-    return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 }

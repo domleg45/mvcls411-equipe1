@@ -2,9 +2,9 @@ let currentSession;
 let currentMediaSession;
 let isPlaying = true;
 let currentVideoIndex = 0;
-let currentVideoUrl;
 let updateInterval;
 let lastVolumeLevel = 1;
+
 const muteToggle = document.getElementById('muteToggle');
 const defaultContentType = 'video/mp4';
 const seekSlider = document.getElementById('seekSlider');
@@ -16,51 +16,41 @@ const videoList = [
     'https://transfertco.ca/video/usa23_7_02.mp4'
 ];
 
-document.getElementById('cast_connect').addEventListener('click', () => {
+const castButton = document.getElementById('cast_connect');
+const nextButton = document.getElementById('next_button');
+const previousBtn = document.getElementById('previousBtn');
+const playButton = document.getElementById('play_button');
+
+castButton.addEventListener('click', () => {
     initializeApiOnly();
 });
 
-document.getElementById('start_button').addEventListener('click', () => {
+nextButton.addEventListener('click', () => {
     if (currentSession) {
-        if(localStorage.getItem('currentVideoIndexLS')) {
-            loadMedia(videoList[localStorage.getItem('currentVideoIndexLS')]);
-        } else {
-            loadMedia(videoList[currentVideoIndex]);
-        }
-        
-       
+        //localStorage.setItem('currentVideoIndexLS', currentVideoIndex);
+        changeVideo(undefined, true);
     } else {
         alert('Connectez-vous sur chromecast en premier');
     }
 });
 
-document.getElementById('next_button').addEventListener('click', () => {
+previousBtn.addEventListener('click', () => {
     if (currentSession) {
-        currentVideoIndex = (currentVideoIndex + 1) % videoList.length;
-        localStorage.setItem('currentVideoIndexLS', currentVideoIndex);
-        loadMedia(videoList[currentVideoIndex]);
+        //localStorage.setItem('currentVideoIndexLS', currentVideoIndex);
+        changeVideo(undefined, false);
     } else {
         alert('Connectez-vous sur chromecast en premier');
     }
 });
 
-document.getElementById('previousBtn').addEventListener('click', () => {
-    if (currentSession) {
-        currentVideoIndex = (currentVideoIndex - 1) % videoList.length;
-        localStorage.setItem('currentVideoIndexLS', currentVideoIndex);
-        loadMedia(videoList[currentVideoIndex]);
-    } else {
-        alert('Connectez-vous sur chromecast en premier');
-    }
-});
-
-document.getElementById('play_button').addEventListener('click', () => {
+playButton.addEventListener('click', () => {
     if (currentMediaSession) {
         if (isPlaying) {
             currentMediaSession.pause(null, onMediaCommandSuccess, onError);
         } else {
             currentMediaSession.play(null, onMediaCommandSuccess, onError);
         }
+
         isPlaying = !isPlaying;
     }
 });
@@ -68,9 +58,9 @@ document.getElementById('play_button').addEventListener('click', () => {
 
 function sessionListener(newSession) {
     currentSession = newSession;
-    document.getElementById('start_button').style.display = 'block';
-    document.getElementById('next_button').style.display = 'block';
-    document.getElementById('previousBtn').style.display = 'block';
+    nextButton.style.display = 'block';
+    previousBtn.style.display = 'block';
+    loadMedia(currentVideoIndex, undefined);
 }
 
 
@@ -82,9 +72,9 @@ function initializeMuted(remotePlayerController, remotePlayer, mediaSession) {
             const volume = new chrome.cast.Volume(lastVolumeLevel, false);
             const volumeRequest = new chrome.cast.media.VolumeRequest(volume);
             currentMediaSession.setVolume(volumeRequest, onMediaCommandSuccess, onError);
-        } else { 
-            
-            
+        } else {
+
+
             lastVolumeLevel = currentMediaSession.volume.level;
             // Mute
             const volume = new chrome.cast.Volume(0, true);
@@ -94,33 +84,31 @@ function initializeMuted(remotePlayerController, remotePlayer, mediaSession) {
     });
 }
 
-
-
 function initializeSeekSlider(remotePlayerController, mediaSession) {
     currentMediaSession = mediaSession;
     document.getElementById('play_button').style.display = 'block';
-   // Set max value of seek slider to media duration in seconds
-   seekSlider.max = mediaSession.media.duration;
+    // Set max value of seek slider to media duration in seconds
+    seekSlider.max = mediaSession.media.duration;
 
     updateInterval = setInterval(() => {
         const currentTime = mediaSession.getEstimatedTime();
         const totalTime = mediaSession.media.duration;
-  
+
         seekSlider.value = currentTime;
         currentTimeElement.textContent = formatTime(currentTime);
         totalTimeElement.textContent = formatTime(totalTime);
-      }, 1000); //chaque 1000 ms... 1 sec
-  
-      // slider change
-      seekSlider.addEventListener('input', () => {
+    }, 1000); //chaque 1000 ms... 1 sec
+
+    // slider change
+    seekSlider.addEventListener('input', () => {
         const seekTime = parseFloat(seekSlider.value);
         remotePlayerController.seek(seekTime);
-      });
- }
+    });
+}
 function initializeMediaSession(mediaSession) {
     currentMediaSession = mediaSession;
     document.getElementById('play_button').style.display = 'block';
- }
+}
 
 function receiverListener(availability) {
     if (availability === chrome.cast.ReceiverAvailability.AVAILABLE) {
@@ -149,16 +137,32 @@ function initializeApiOnly() {
     chrome.cast.initialize(apiConfig, onInitSuccess, onError);
 }
 
-function loadMedia(videoUrl) {
-    currentVideoUrl = videoUrl;
-    const mediaInfo = new chrome.cast.media.MediaInfo(videoUrl, defaultContentType);
+function loadMedia() {
+    const mediaInfo = new chrome.cast.media.MediaInfo(videoList[currentVideoIndex], defaultContentType);
     const request = new chrome.cast.media.LoadRequest(mediaInfo);
 
     currentSession.loadMedia(request, mediaSession => {
         console.log('Media chargé avec succès');
         initializeMediaSession(mediaSession);
         initializeMuted(mediaSession);
-      }, onError);
+    }, onError);
+}
+
+function changeVideo(videoIndex, isNext) {
+    if (videoIndex) {
+        currentVideoIndex = videoIndex;
+    } else {
+        if (isNext) {
+            currentVideoIndex++;
+            if (currentVideoIndex >= videoList.length) currentVideoIndex = 0;
+        } else {
+            currentVideoIndex--;
+            if (currentVideoIndex < 0) currentVideoIndex = videoList.length - 1;
+        }
+    }
+
+    loadMedia();
+    console.log(currentVideoIndex);
 }
 
 function formatTime(timeInSeconds) {

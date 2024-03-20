@@ -80,18 +80,3 @@ img{
     background-color: inherit;
     align-items: center;
 }
-
-.seekslide{
-   color: rgb(0, 0, 0);
-    width: 250px;
-    height: 100px;
-    margin-left: 20px;
-    margin-top: 20px;
-    align-items: center;
-}
-
-.time{
-    margin-left: 15px;
-    font-family: 'Courier New', Courier, monospace;
-    color: white;
-}

@@ -15,7 +15,7 @@ body{
     margin-right: auto;
     image-rendering: pixelated;
 }
-.lol1{
+.btn-container{
     display: flex;
     margin-left: 10px;
     

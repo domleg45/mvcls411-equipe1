@@ -64,25 +64,13 @@ function sessionListener(newSession) {
 }
 
 
-function initializeMuted(remotePlayerController, remotePlayer, mediaSession) {
-    //Ajout listener + boutton
-    muteToggle.addEventListener('click', () => {
-        if (currentMediaSession.volume.muted) {
-            // Unmute
-            const volume = new chrome.cast.Volume(lastVolumeLevel, false);
-            const volumeRequest = new chrome.cast.media.VolumeRequest(volume);
-            currentMediaSession.setVolume(volumeRequest, onMediaCommandSuccess, onError);
-        } else { 
-            
-            
-            lastVolumeLevel = currentMediaSession.volume.level;
-            // Mute
-            const volume = new chrome.cast.Volume(0, true);
-            const volumeRequest = new chrome.cast.media.VolumeRequest(volume);
-            currentMediaSession.setVolume(volumeRequest, onMediaCommandSuccess, onError);
-        }
-    });
-}
+let isMuted = false;
+document.getElementById('muteBtn').addEventListener('click', () => {
+    if (currentSession) {
+        isMuted = !isMuted;
+        currentSession.setReceiverMuted(isMuted, onMediaCommandSuccess, onError);
+    }
+});
 
 document.getElementById('volUp').addEventListener('click', () => {
     if (currentSession) {
@@ -160,12 +148,13 @@ function loadMedia(videoUrl) {
     currentVideoUrl = videoUrl;
     const mediaInfo = new chrome.cast.media.MediaInfo(videoUrl, defaultContentType);
     const request = new chrome.cast.media.LoadRequest(mediaInfo);
+    const remotePlayer = new cast.framework.RemotePlayer();
+    const remotePlayerController = new cast.framework.RemotePlayerController(remotePlayer);
 
     currentSession.loadMedia(request, mediaSession => {
         console.log('Media chargé avec succès');
-        initializeMediaSession(mediaSession);
-        initializeMuted(mediaSession);
-      }, onError);
+        initializeSeekSlider(remotePlayerController, mediaSession);
+    }, onError);
 }
 
 function formatTime(timeInSeconds) {

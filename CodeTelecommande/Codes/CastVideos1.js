@@ -56,19 +56,8 @@ document.getElementById('previousBtn').addEventListener('click', () => {
     }
 });
 
-//PLAY / PAUSE
-document.getElementById('play_button').addEventListener('click', () => {
-    if (currentMediaSession) {
-        if (isPlaying) {
-            currentMediaSession.pause(null, onMediaCommandSuccess, onError);
-        } else {
-            currentMediaSession.play(null, onMediaCommandSuccess, onError);
-        }
-        isPlaying = !isPlaying;
-    }
-});
 //NEW PLAY / PAUSE vient de moi
-document.getElementById('playBtn').addEventListener('click', () => {
+document.getElementById('play_button').addEventListener('click', () => {
     if (currentMediaSession) {
         if (!isPlaying) {
             currentMediaSession.play(null, onMediaCommandSuccess, onError);
@@ -77,7 +66,7 @@ document.getElementById('playBtn').addEventListener('click', () => {
     }
 });
 
-document.getElementById('pauseBtn').addEventListener('click', () => {
+document.getElementById('pause_button').addEventListener('click', () => {
     if (currentMediaSession) {
         if (isPlaying) {
             currentMediaSession.pause(null, onMediaCommandSuccess, onError);
@@ -99,9 +88,22 @@ document.getElementById('muteToggle').addEventListener('click', () => {
 });
 
 //Volume +
+document.getElementById('volumeUpBtn').addEventListener('click', () => {
+    if (currentSession) {
+        currentSession.setReceiverVolumeLevel(currentSession.receiver.volume.level += 0.1, onMediaCommandSuccess, onError);
+    } else {
+        alert('Connectez-vous sur chromecast en premier');
+    }
+});
 
 //Volume -
-
+document.getElementById('volumeDownBtn').addEventListener('click', () => {
+    if (currentSession) {
+        currentSession.setReceiverVolumeLevel(currentSession.receiver.volume.level -= 0.1, onMediaCommandSuccess, onError);
+    } else {
+        alert('Connectez-vous sur chromecast en premier');
+    }
+});
 
 function sessionListener(newSession) {
     currentSession = newSession;

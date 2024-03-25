@@ -8,17 +8,26 @@
     <script src="CastVideos1.js" type="module"></script>
 </head>
 <body>
-    <div class="container">  
-        <div class="cast_mute_container">
-                    <button class="cast_mute_button">
-                        <img id ="cast_connect"  class="button" src="../images\vecteezy_pixel-art-play-button_8506348-Recovere1d.png" title="Connection ChromeCast"/>
-                    </button> 
-                    <button  class="cast_mute_button">
-                        <img id ="muteToggle"  class="button" src="../images\MUTE.PNG" title="Mute button"/>
-                    </button>
-                </div>
+    <div class="container">
+        <div class="cast_parent_container">
+            <div class="cast_mute_container">
+                <button class="cast_mute_button">
+                    <img id ="cast_connect"  class="button" src="../images\vecteezy_pixel-art-play-button_8506348-Recovere1d.png" title="Connection ChromeCast"/>
+                </button> 
+                <button  class="cast_mute_button">
+                    <img id ="muteToggle"  class="button" src="../images\MUTE.PNG" title="Mute button"/>
+                </button>
+            </div>
+            <div class="cast_volume_container">
+                <button class="cast_volume_button">
+                    <img id="volumeUpBtn" class="button" src="../images/volume_up.png" title="Volume Up button"/>
+                    <img id="volumeDownBtn" class="button" src="../images/volume_down.png" title="Volume Down button"/>
+                </button>
+            </div>
+        </div>
+        
         <div class="container_play_pause">
-            <button class="play_pause">
+            <button class="start_btn">
                  <img id ="start_button"  class="button" src="../images\—Pngtree—start button in pixel art_79493863.png"/>
             </button>     
             <!-- <button class="play_pause">
@@ -33,7 +42,10 @@
                     </button> 
                     <button class="cast2">
                         <img id ="play_button"  class="button" src="../images\play.png"/>
-                    </button> 
+                    </button>
+                    <button class="cast2">
+                        <img id ="pause_button"  class="button" src="../images\pause.png"/>
+                    </button>
                     <button  class="cast2">
                         <img id ="next_button"  class="button" src="../images\vecteezy_pixel-art-play-button_8506344-Recovered_2.png"/>
                     </button>

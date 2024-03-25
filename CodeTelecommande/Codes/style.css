@@ -1,56 +1,98 @@
 body{
     background-color: rgb(70, 75, 74);
     margin: 10px;
-    margin-left: 10px;   
+    margin-left: 10px;
 }
 
 .container{
     width: 170px;
-    height: 210px;
-    background-color: rgb(99, 96, 96);
-    border-radius: 30px; 
+    height: 170px;
+    background-color: rgb(121, 121, 121);
+    border-radius: 30px;
     border: 3px solid rgb(0, 0, 0);
     margin-top: 50px;
     margin-left: auto;
     margin-right: auto;
     image-rendering: pixelated;
 }
+.lol1{
+    display: flex;
+    margin-left: 10px;
 
+}
 
-.btn{
+.cast_mute_container{
     display: flex;
     padding: 10px;
     margin-left: -20px;
+    align-items: center;
 
 }
 
+.cast_mute_container img{
+    width: 40px;
+}
+
+.container_t img {
+    width: 40px;
+}
+
+
+img{
+    width: 110px;
+    filter: grayscale(.4);
+}
 
 .button:hover {
-    transform: scale(1.2);
+    transform: scale(1.1);
 
 }
 
-.button{
+
+#start_button{
+    margin-top: 10px;
+}
+
+.play_pause{
+    border: none;
+    cursor: pointer;
+    appearance: none;
+    background-color: inherit;
+    margin-left: 25px;
+    margin-right: 10px;
+    margin-top: -30px;
+}
+
+.cast_mute_button{
     border: none;
     cursor: pointer;
     appearance: none;
     background-color: inherit;
     align-items: center;
-    padding-right: 20px;
+    padding-right: 35px;
     margin-left: 20px;
+
 }
 
-i {
-    color: white;
-    scale: 150%;
-}
-
-.btn-sound {
-    background-color: inherit;
+.cast2{
     border: none;
     cursor: pointer;
+    appearance: none;
+    background-color: inherit;
+    align-items: center;
 }
 
+.seekslide{
+    color: rgb(0, 0, 0);
+    width: 250px;
+    height: 100px;
+    margin-left: 20px;
+    margin-top: 20px;
+    align-items: center;
+}
 
-
-
+.time{
+    margin-left: 15px;
+    font-family: 'Courier New', Courier, monospace;
+    color: white;
+}

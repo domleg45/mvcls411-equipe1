@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,46 +6,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Telecommande</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://kit.fontawesome.com/eba5d366fa.js" crossorigin="anonymous"></script>
     <script src="CastVideos1.js" type="module"></script>
 </head>
 <body>
-    <div class="container">  
-        <div class="btn">
-                    <button class="button">
-                        <i class="fa-brands fa-chromecast"></i>
-                    </button>
-
-        </div>
-        <div class="btn">
-            <button  class="button">
-                <i class="fa-solid fa-volume-off"></i>
-                <i class="fa-solid fa-minus"></i></i>
-            </button>
-            <button  class="button">
-                <i class="fa-solid fa-volume-xmark"></i>
-            </button>
-            <button  class="button">
-                <i class="fa-solid fa-volume-off"></i>
-                <i class="fa-solid fa-plus"></i>
-            </button>
-        </div>
-        <div class="btn">
-            <button class="button">
-                <i class="fa-solid fa-backward"></i>
-            </button>
-            <button  class="button">
-                <i class="fa-solid fa-pause"></i>
-            </button>
-            <button  class="button">
-                <i class="fa-solid fa-forward"></i>
+<div class="container">
+        <div class="cast_mute_container">
+            <button class="cast_mute_button">
+                <img id ="cast_connect"  class="button" src="../images\vecteezy_pixel-art-play-button_8506348-Recovere1d.png"/>
             </button>
 
         </div>
+        <div class="container_t">
+            <div class="lol1">
+                <button  button class="cast2">
+                    <img id ="volDown"  class="button" src="../images\down.PNG"/>
+                </button>
+                <button  button class="cast2">
+                    <img id ="2"  class="button" src="../images\MUTE.PNG"/>
+                </button>
+                <button  button class="cast2">
+                    <img id ="volUp"  class="button" src="../images\up.PNG"/>
+                </button>
+                </div>
+            <div class="lol1">
+                <button class="cast2">
+                    <img id ="previousBtn"  class="button" src="../images\vecteezy_pixel-art-play-button_8506344-Recovered5.png"/>
+                </button>
+                <button class="cast2">
+                    <img id ="play_button"  class="button" src="../images\play.png"/>
+                </button>
+                <button  class="cast2">
+                    <img id ="next_button"  class="button" src="../images\vecteezy_pixel-art-play-button_8506344-Recovered_2.png"/>
+                </button>
+            </div>
+        </div>
 
 
-
-          <script type="text/javascript" src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
     </div>
+    <!-- <div class="seekslide">
+        <input type="range" id="seekSlider" min="0" max="100" step="1" value="0" style="width: 50%">
+        <div class="time">
+            <span id="currentTime">0:00</span> / <span id="totalTime">0:00</span>
+        </div>
+    </div>  -->
+    <script type="text/javascript" src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
+</div>
 </body>
 </html>

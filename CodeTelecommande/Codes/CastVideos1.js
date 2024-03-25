@@ -20,19 +20,7 @@ document.getElementById('cast_connect').addEventListener('click', () => {
     initializeApiOnly();
 });
 
-document.getElementById('start_button').addEventListener('click', () => {
-    if (currentSession) {
-        if(localStorage.getItem('currentVideoIndexLS')) {
-            loadMedia(videoList[localStorage.getItem('currentVideoIndexLS')]);
-        } else {
-            loadMedia(videoList[currentVideoIndex]);
-        }
-        
-       
-    } else {
-        alert('Connectez-vous sur chromecast en premier');
-    }
-});
+
 
 document.getElementById('next_button').addEventListener('click', () => {
     if (currentSession) {
@@ -58,8 +46,10 @@ document.getElementById('play_button').addEventListener('click', () => {
     if (currentMediaSession) {
         if (isPlaying) {
             currentMediaSession.pause(null, onMediaCommandSuccess, onError);
+            document.getElementById("play_button").setAttribute('src','../images/pause.png');
         } else {
             currentMediaSession.play(null, onMediaCommandSuccess, onError);
+            document.getElementById("play_button").setAttribute('src','../images/play.png');
         }
         isPlaying = !isPlaying;
     }
@@ -94,6 +84,21 @@ function initializeMuted(remotePlayerController, remotePlayer, mediaSession) {
     });
 }
 
+document.getElementById('volUp').addEventListener('click', () => {
+    if (currentSession) {
+        currentSession.setReceiverVolumeLevel(currentSession.receiver.volume.level += 0.1, onMediaCommandSuccess, onError);
+    } else {
+        alert('Connectez-vous sur chromecast en premier');
+    }
+});
+document.getElementById('volDown').addEventListener('click', () => {
+    if (currentSession) {
+        currentSession.setReceiverVolumeLevel(currentSession.receiver.volume.level -= 0.1, onMediaCommandSuccess, onError);
+    } else {
+        alert('Connectez-vous sur chromecast en premier');
+    }
+});
+
 
 
 function initializeSeekSlider(remotePlayerController, mediaSession) {
@@ -126,7 +131,7 @@ function receiverListener(availability) {
     if (availability === chrome.cast.ReceiverAvailability.AVAILABLE) {
         document.getElementById('cast_connect').style.display = 'block';
     } else {
-        document.getElementById('cast_connect').style.display = 'none';
+        document.getElementById('cast_connect').style.display = 'block';
     }
 }
 
@@ -143,6 +148,8 @@ function onMediaCommandSuccess() {
 }
 
 function initializeApiOnly() {
+
+
     const sessionRequest = new chrome.cast.SessionRequest(chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID);
     const apiConfig = new chrome.cast.ApiConfig(sessionRequest, sessionListener, receiverListener);
 

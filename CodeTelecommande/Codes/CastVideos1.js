@@ -5,7 +5,7 @@ let currentVideoIndex = 0;
 let currentVideoUrl;
 let updateInterval;
 let lastVolumeLevel = 1;
-const muteToggle = document.getElementById('muteToggle');
+const muteStatus= document.getElementById('muteStatus');
 const defaultContentType = 'video/mp4';
 const videoList = [
     'https://transfertco.ca/video/DBillPrelude.mp4',
@@ -94,6 +94,7 @@ document.getElementById('play_button').addEventListener('click', () => {
         isPlaying = !isPlaying;
     }
 });
+
 /**
  * Pause
  * Boutton pour pause la vidéo.
@@ -122,13 +123,22 @@ document.getElementById('pause_button').addEventListener('click', () => {
  * Il y a un changement visuel sur le ChromeCast lorsqu'on appuie sur le boutton/icon.
  * L'aspect visuel est un plus du pourquoi Karolann a changer la fonction mute.
  * De plus, l'ancienne fonction mute, lorsqu'on clickait sur le boutton il y avait un mini freeze de la manette.
+ * Ajout d'un texte pour savoir si la vidéo est mute ou non, la vidéo doit être lancé pour bien voir l'état du mute/unmute.
  */
 let isMuted = false;
 document.getElementById('muteToggle').addEventListener('click', () => {
     if (currentSession) {
         isMuted = !isMuted;
         currentSession.setReceiverMuted(isMuted, onMediaCommandSuccess, onError);
+
+        if(isMuted){
+            muteStatus.textContent = "MUTE";
+        } else{
+            muteStatus.textContent = "UNMUTE";
+        }
     }
+
+    
 });
 /**
  * Volume +

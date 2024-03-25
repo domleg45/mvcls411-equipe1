@@ -146,7 +146,7 @@ function receiverListener(availability) {
     if (availability === chrome.cast.ReceiverAvailability.AVAILABLE) {
         document.getElementById('cast_connect').style.display = 'block';
     } else {
-        document.getElementById('cast_connect').style.display = 'none';
+        document.getElementById('cast_connect').style.display = 'block';
     }
 }
 

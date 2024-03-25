@@ -6,18 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Telecommande</title>
     <link rel="stylesheet" href="style.css">
-    <script src="CastVideos1.js" type="module"></script>
 </head>
 
 <body>
     <div class="container">
         <div class="cast_mute_container">
             <button class="cast_mute_button">
-                <img id="cast_connect" class="button"
-                    src="../images\vecteezy_pixel-art-play-button_8506348-Recovere1d.png" />
+                <img id="cast_connect" class="button" src="../assets/img/cast.png" />
             </button>
             <button class="cast_mute_button">
-                <img id="muteToggle" class="button" src="../images\MUTE.PNG" />
+                <img id="volume-mute" class="button" src="../assets/img/mute.png" />
             </button>
         </div>
         <div class="container_play_pause">
@@ -26,18 +24,23 @@
                 <div class="lol1">
                     <button class="cast2">
                         <img id="previousBtn" class="button"
-                            src="../images\vecteezy_pixel-art-play-button_8506344-Recovered5.png" />
+                            src="../assets/img/previousVideo.png" />
                     </button>
                     <button class="cast2">
-                        <img id="play_button" class="button" src="../images\play.png" />
+                        <img id="play_button" class="button" src="../assets/img/play.png" />
                     </button>
                     <button class="cast2">
                         <img id="next_button" class="button"
-                            src="../images\vecteezy_pixel-art-play-button_8506344-Recovered_2.png" />
+                            src="../assets/img/nextVideo.png" />
                     </button>
                 </div>
             </div>
 
+            <div>
+                <button id="volume-plus">+</button>
+                <p id="volume-value">100</p>
+                <button id="volume-less">-</button>
+            </div>
 
         </div>
         <!-- <div class="seekslide">
@@ -48,6 +51,8 @@
         </div>  -->
         <script type="text/javascript"
             src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
+        <script src="CastVideos1.js"></script>
+        <script src="mute.js"></script>
     </div>
 </body>
 

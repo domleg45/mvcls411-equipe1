@@ -7,20 +7,30 @@ let updateInterval;
 let lastVolumeLevel = 1;
 const muteToggle = document.getElementById('muteToggle');
 const defaultContentType = 'video/mp4';
-const seekSlider = document.getElementById('seekSlider');
-const currentTimeElement = document.getElementById('currentTime');
-const totalTimeElement = document.getElementById('totalTime');
 const videoList = [
     'https://transfertco.ca/video/DBillPrelude.mp4',
     'https://transfertco.ca/video/DBillSpotted.mp4',
     'https://transfertco.ca/video/usa23_7_02.mp4'
 ];
 
-//Connection
+/**
+ * ---------------------------------------------------------------------------------------------------
+ * Partie Connection et initialisation de la vidéo
+ */
+
+
+/**
+ * Connection
+ * Aucun changement, c'est la même fonction que celle de base.
+ */
 document.getElementById('cast_connect').addEventListener('click', () => {
     initializeApiOnly();
 });
-//Start 
+/**
+ * Start
+ * Boutton pour start la vidéo. Vidéo prédéfini.
+ * Aucun changement, c'est la même fonction que celle de base.
+ */
 document.getElementById('start_button').addEventListener('click', () => {
     if (currentSession) {
         if(localStorage.getItem('currentVideoIndexLS')) {
@@ -28,14 +38,20 @@ document.getElementById('start_button').addEventListener('click', () => {
         } else {
             loadMedia(videoList[currentVideoIndex]);
         }
-        
-       
     } else {
         alert('Connectez-vous sur chromecast en premier');
     }
 });
+/**
+ * ---------------------------------------------------------------------------------------------------
+ * Partie Next / Previous
+ * Aucun changement, c'est la même fonction que celle de base.
+ */
 
-//NEXT / PREVIOUS
+
+/**
+ * Next
+ */
 document.getElementById('next_button').addEventListener('click', () => {
     if (currentSession) {
         currentVideoIndex = (currentVideoIndex + 1) % videoList.length;
@@ -45,7 +61,9 @@ document.getElementById('next_button').addEventListener('click', () => {
         alert('Connectez-vous sur chromecast en premier');
     }
 });
-
+/**
+ * Previous
+ */
 document.getElementById('previousBtn').addEventListener('click', () => {
     if (currentSession) {
         currentVideoIndex = (currentVideoIndex - 1) % videoList.length;
@@ -55,17 +73,33 @@ document.getElementById('previousBtn').addEventListener('click', () => {
         alert('Connectez-vous sur chromecast en premier');
     }
 });
+/**
+ * ---------------------------------------------------------------------------------------------------
+ * Partie Play / Pause
+ * J'ai fait un changement de séparé le play et le pause en deux fonction distinct.
+ */
 
-//NEW PLAY / PAUSE vient de moi
+
+/**
+ * Play
+ * Boutton pour play la vidéo.
+ * Karolann est aller le chercher dans le code qu'elle avait conçu pour sa télécommande.
+ * Il avait seulement une légère différence avec celle de base.
+ */
 document.getElementById('play_button').addEventListener('click', () => {
     if (currentMediaSession) {
         if (!isPlaying) {
             currentMediaSession.play(null, onMediaCommandSuccess, onError);
-        isPlaying = !isPlaying;
         }
+        isPlaying = !isPlaying;
     }
 });
-
+/**
+ * Pause
+ * Boutton pour pause la vidéo.
+ * Karolann est aller le chercher dans le code qu'elle avait conçu pour sa télécommande.
+ * Il avait seulement une légère différence avec celle de base.
+ */
 document.getElementById('pause_button').addEventListener('click', () => {
     if (currentMediaSession) {
         if (isPlaying) {
@@ -75,10 +109,20 @@ document.getElementById('pause_button').addEventListener('click', () => {
     }
 });
 
-//Volume
+/**
+ * ---------------------------------------------------------------------------------------------------
+ * Partie Seek Volume avec boutton
+ */
 
-//New mute function. Elle est meilleur que la précédente, car quand on click sur le button, il a pas de freeze et nous voyons avec l'état de volume sur la vidéo elle est mute.
-//Je suis allé la chercher dans mon propre code de télécommande.
+
+/**
+ * Mute
+ * Boutton pour mute le volume.
+ * Karolann est aller le chercher dans le code qu'elle avait conçu pour sa télécommande.
+ * Il y a un changement visuel sur le ChromeCast lorsqu'on appuie sur le boutton/icon.
+ * L'aspect visuel est un plus du pourquoi Karolann a changer la fonction mute.
+ * De plus, l'ancienne fonction mute, lorsqu'on clickait sur le boutton il y avait un mini freeze de la manette.
+ */
 let isMuted = false;
 document.getElementById('muteToggle').addEventListener('click', () => {
     if (currentSession) {
@@ -86,8 +130,12 @@ document.getElementById('muteToggle').addEventListener('click', () => {
         currentSession.setReceiverMuted(isMuted, onMediaCommandSuccess, onError);
     }
 });
-
-//Volume +
+/**
+ * Volume +
+ * Boutton pour augmenter le volume.
+ * Karolann est aller le chercher dans le code qu'elle avait conçu pour sa télécommande.
+ * Il y a un changement visuel sur le ChromeCast lorsqu'on appuie sur le boutton/icon.
+ */
 document.getElementById('volumeUpBtn').addEventListener('click', () => {
     if (currentSession) {
         currentSession.setReceiverVolumeLevel(currentSession.receiver.volume.level += 0.1, onMediaCommandSuccess, onError);
@@ -95,8 +143,12 @@ document.getElementById('volumeUpBtn').addEventListener('click', () => {
         alert('Connectez-vous sur chromecast en premier');
     }
 });
-
-//Volume -
+/**
+ * Volume -
+ * Boutton pour baisser le volume. 
+ * Karolann est aller le chercher dans le code qu'elle avait conçu pour sa télécommande.
+ * Il y a un changement visuel sur le ChromeCast lorsqu'on appuie sur le boutton/icon.
+ */
 document.getElementById('volumeDownBtn').addEventListener('click', () => {
     if (currentSession) {
         currentSession.setReceiverVolumeLevel(currentSession.receiver.volume.level -= 0.1, onMediaCommandSuccess, onError);
@@ -112,31 +164,7 @@ function sessionListener(newSession) {
     document.getElementById('previousBtn').style.display = 'block';
 }
 
-//Doit faire diff mute note à moi-même
-function initializeMuted(remotePlayerController, remotePlayer, mediaSession) {
-    //Ajout listener + boutton
-    muteToggle.addEventListener('click', () => {
-        if (currentMediaSession.volume.muted) {
-            // Unmute
-            const volume = new chrome.cast.Volume(lastVolumeLevel, false);
-            const volumeRequest = new chrome.cast.media.VolumeRequest(volume);
-            currentMediaSession.setVolume(volumeRequest, onMediaCommandSuccess, onError);
-        } else { 
-            
-            
-            lastVolumeLevel = currentMediaSession.volume.level;
-            // Mute
-            const volume = new chrome.cast.Volume(0, true);
-            const volumeRequest = new chrome.cast.media.VolumeRequest(volume);
-            currentMediaSession.setVolume(volumeRequest, onMediaCommandSuccess, onError);
-        }
-    });
-}
-
-
-
-
-
+//Changement du display dans le else pour none -> block
 function initializeMediaSession(mediaSession) {
     currentMediaSession = mediaSession;
     document.getElementById('play_button').style.display = 'block';

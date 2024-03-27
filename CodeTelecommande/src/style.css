@@ -1,34 +1,26 @@
-body{
+body {
     background-color: rgb(70, 75, 74);
-    margin: 10px;
-    margin-left: 10px;   
 }
 
-.container{
-    width: 170px;
-    height: 210px;
-    background-color: rgb(99, 96, 96);
-    border-radius: 30px; 
-    border: 3px solid rgb(0, 0, 0);
-    margin-top: 50px;
-    margin-left: auto;
-    margin-right: auto;
-    image-rendering: pixelated;
-}
-.lol1{
-    display: flex;
-    margin-left: 10px;
-    
-}
-
-.cast_mute_container{
-    display: flex;
+.container {
     padding: 10px;
-    margin-left: -20px;
-   
+    width: 170px;
+    height: 150px;
+    background-color: rgb(99, 96, 96);
+    border-radius: 30px;
+    border: 3px solid rgb(0, 0, 0);
 }
 
-.cast_mute_container img{
+.lol1 {
+    display: flex;
+}
+
+.cast_mute_container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cast_mute_container img {
     width: 40px;
 }
 
@@ -36,44 +28,28 @@ body{
     width: 40px;
 }
 
-
-img{
+img {
     width: 110px;
     filter: grayscale(.8);
 }
 
 .button:hover {
     transform: scale(1.1);
-    
 }
 
 
-#start_button{
+#start_button {
     margin-top: 10px;
 }
 
-.play_pause{
+.play_pause {
     border: none;
     cursor: pointer;
     appearance: none;
     background-color: inherit;
-    margin-left: 25px;
-    margin-right: 10px;
-    margin-top: -30px;
 }
 
-.cast_mute_button{
-    border: none;
-    cursor: pointer;
-    appearance: none;
-    background-color: inherit;
-    align-items: center;
-    padding-right: 35px;
-    margin-left: 20px;
-
-}
-
-.cast2{
+.cast_mute_button {
     border: none;
     cursor: pointer;
     appearance: none;
@@ -81,8 +57,16 @@ img{
     align-items: center;
 }
 
-.seekslide{
-   color: rgb(0, 0, 0);
+.cast2 {
+    border: none;
+    cursor: pointer;
+    appearance: none;
+    background-color: inherit;
+    align-items: center;
+}
+
+.seekslide {
+    color: rgb(0, 0, 0);
     width: 250px;
     height: 100px;
     margin-left: 20px;
@@ -90,7 +74,7 @@ img{
     align-items: center;
 }
 
-.time{
+.time {
     margin-left: 15px;
     font-family: 'Courier New', Courier, monospace;
     color: white;
@@ -99,14 +83,29 @@ img{
 .volume-section {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
     color: white;
     width: 100px;
-    margin: 0 auto;
+    margin-top: 22px;
 }
 
 .volume-section button {
-    width: 30px;
+    width: 32px;
     height: 20px;
+    cursor: pointer;
+}
+
+.disabled-button {
+    filter: grayscale();
+}
+
+.flex-volume {
+    display: flex;
+    width: 200px;
+}
+
+.global-style {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 95vh;
 }

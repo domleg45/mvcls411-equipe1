@@ -1,7 +1,7 @@
 const volumePlus = document.getElementById("volume-plus");
 const volumeLess = document.getElementById("volume-less");
 const volumeValue = document.getElementById("volume-value");
-const volumeMute = document.getElementById("volume-mute");
+
 
 /* 
     Code qui provient du projet chrome-cast de moi et Davide, sauf que je l'ai plus optimiser.
@@ -23,24 +23,31 @@ const changeVolume = () => {
 };
 
 const notMuteOperation = () => {
-    if (isMuted) isMuted = false;
-    changeVolume()
+    if (isCastInit()) {
+        if (isMuted) isMuted = false;
+        changeVolume()
+    }
 };
 
 volumePlus.onclick = () => {
-    if (volumeLevel < 100) volumeLevel += 10;
-    notMuteOperation();
+    if (isCastInit()) {
+        if (volumeLevel < 100) volumeLevel += 10;
+        notMuteOperation();
+    }
 };
 
 volumeLess.onclick = () => {
-    if (volumeLevel > 0) volumeLevel = volumeLevel - 10;
-    notMuteOperation();
-
+    if (isCastInit()) {
+        if (volumeLevel > 0) volumeLevel = volumeLevel - 10;
+        notMuteOperation();
+    }
 };
 
 volumeMute.onclick = () => {
-    isMuted = !isMuted;
-    changeVolume();
+    if (isCastInit()) {
+        isMuted = !isMuted;
+        changeVolume();
+    }
 };
 
 /**

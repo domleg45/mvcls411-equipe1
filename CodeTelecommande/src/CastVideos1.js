@@ -21,31 +21,56 @@ const castButton = document.getElementById('cast_connect');
 const nextButton = document.getElementById('next_button');
 const previousBtn = document.getElementById('previousBtn');
 const playButton = document.getElementById('play_button');
+const volumeMute = document.getElementById("volume-mute");
+const DISABLED = "disabled-button";
+const EMPTY = "";
+
+function isCastInit() {
+    if (currentMediaSession) return true;
+    else {
+        alert("Connectez-vous sur chromecast en premier");
+        return false;
+    }
+}
+
+function closeButton() {
+    playButton.className = DISABLED;
+    nextButton.className = DISABLED;
+    previousBtn.className = DISABLED;
+    playButton.className = DISABLED;
+    volumeMute.className = DISABLED;
+}
+
+closeButton();
+
+function initButton() {
+    playButton.className = EMPTY;
+    nextButton.className = EMPTY;
+    previousBtn.className = EMPTY;
+    playButton.className = EMPTY;
+    volumeMute.className = EMPTY;
+}
 
 castButton.onclick = () => {
     initializeApiOnly();
 };
 
 nextButton.onclick = () => {
-    if (currentSession) {
+    if (isCastInit()) {
         //localStorage.setItem('currentVideoIndexLS', currentVideoIndex);
         changeVideo(undefined, true);
-    } else {
-        alert('Connectez-vous sur chromecast en premier');
     }
 };
 
 previousBtn.onclick = () => {
-    if (currentSession) {
+    if (isCastInit()) {
         //localStorage.setItem('currentVideoIndexLS', currentVideoIndex);
         changeVideo(undefined, false);
-    } else {
-        alert('Connectez-vous sur chromecast en premier');
     }
 };
 
 playButton.onclick = () => {
-    if (currentMediaSession) {
+    if (isCastInit()) {
         if (isPlaying) {
             currentMediaSession.pause(null, onMediaCommandSuccess, onError);
             playButton.src = `${IMAGE_PATH}/pause.png`;
@@ -63,7 +88,8 @@ function sessionListener(newSession) {
     currentSession = newSession;
     nextButton.style.display = 'block';
     previousBtn.style.display = 'block';
-    loadMedia(currentVideoIndex, undefined);
+    loadMedia();
+    initButton();
 }
 
 function initializeSeekSlider(remotePlayerController, mediaSession) {
@@ -115,7 +141,6 @@ function onMediaCommandSuccess() {
 function initializeApiOnly() {
     const sessionRequest = new chrome.cast.SessionRequest(chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID);
     const apiConfig = new chrome.cast.ApiConfig(sessionRequest, sessionListener, receiverListener);
-
     chrome.cast.initialize(apiConfig, onInitSuccess, onError);
 }
 

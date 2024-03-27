@@ -9,50 +9,55 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="cast_mute_container">
-            <button class="cast_mute_button">
-                <img id="cast_connect" class="button" src="../assets/img/cast.png" />
-            </button>
-            <button class="cast_mute_button">
-                <img id="volume-mute" class="button" src="../assets/img/mute.png" />
-            </button>
-        </div>
+    <div class="global-style">
+        <div class="flex-volume">
+            <div class="volume-section">
+                <button id="volume-plus">+</button>
+                <button id="volume-less">-</button>
+            </div>
 
-        <div class="volume-section">
-            <button id="volume-plus">+</button>
-            <p id="volume-value">100</p>
-            <button id="volume-less">-</button>
-        </div>
-
-        <div class="container_play_pause">
-            <div class="container_t">
-
-                <div class="lol1">
-                    <button class="cast2">
-                        <img id="previousBtn" class="button"
-                            src="../assets/img/previousVideo.png" />
+            <div class="container">
+                <div class="cast_mute_container">
+                    <button class="cast_mute_button">
+                        <img id="cast_connect" class="button" src="../assets/img/cast.png" />
                     </button>
-                    <button class="cast2">
-                        <img id="play_button" class="button" src="../assets/img/play.png" />
-                    </button>
-                    <button class="cast2">
-                        <img id="next_button" class="button"
-                            src="../assets/img/nextVideo.png" />
+
+                    <p id="volume-value">100</p>
+
+                    <button class="cast_mute_button">
+                        <img id="volume-mute" class="button" src="../assets/img/mute.png" />
                     </button>
                 </div>
-            </div>
-        </div>
-        <!-- <div class="seekslide">
+
+
+                <div class="container_play_pause">
+                    <div class="container_t">
+
+                        <div class="lol1">
+                            <button class="cast2">
+                                <img id="previousBtn" class="button" src="../assets/img/previousVideo.png" />
+                            </button>
+                            <button class="cast2">
+                                <img id="play_button" class="button" src="../assets/img/play.png" />
+                            </button>
+                            <button class="cast2">
+                                <img id="next_button" class="button" src="../assets/img/nextVideo.png" />
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="seekslide">
             <input type="range" id="seekSlider" min="0" max="100" step="1" value="0" style="width: 50%">
             <div class="time">
                 <span id="currentTime">0:00</span> / <span id="totalTime">0:00</span>
             </div>
         </div>  -->
-        <script type="text/javascript"
-            src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
-        <script src="CastVideos1.js"></script>
-        <script src="mute.js"></script>
+                <script type="text/javascript"
+                    src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
+                <script src="CastVideos1.js"></script>
+                <script src="mute.js"></script>
+            </div>
+        </div>
     </div>
 </body>
 

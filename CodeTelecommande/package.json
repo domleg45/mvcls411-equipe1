@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@types/chromecast-caf-sender": "^1.0.9",
+    "chromecast-api": "^0.4.2"
+  }
+}

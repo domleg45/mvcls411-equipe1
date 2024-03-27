@@ -6,7 +6,7 @@ La documentation ce trouve dans le main et est appelée documentation.pdf
 - :floppy_disk: [@JennaLeeL](https://www.github.com/JennaLeeL)
 
 ## Installation
-- Cliquez sur Code puis copiez l'adresse https://github.com/domleg45/mvcls411-equipe4.git
+- Cliquez sur Code puis copiez l'adresse https://github.com/domleg45/mvcls411-equipe1.git
 - Gardez votre navigateur web ouvert
 - Ouvrez Visual Studio Code
 - Dans un terminal écrire git clone puis collez l'URL, puis appuyez "enter"
